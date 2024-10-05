@@ -13,12 +13,6 @@ const LoginPage = () => {
 		login({ email, password });
 	};
 
-	const apiUrl = import.meta.env.VITE_BACKEND_URL;
-
-	console.log(apiUrl);
-
-	console.log("hiiii");
-
 	return (
 		<div className='h-screen w-full hero-bg'>
 			<header className='max-w-6xl mx-auto flex items-center justify-between p-4'>
