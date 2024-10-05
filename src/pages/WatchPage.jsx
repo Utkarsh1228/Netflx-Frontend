@@ -18,12 +18,14 @@ const WatchPage = () => {
 	const [similarContent, setSimilarContent] = useState([]);
 	const { contentType } = useContentStore();
 
+	const apiUrl = import.meta.env.VITE_BACKEND_URL;
+
 	const sliderRef = useRef(null);
 
 	useEffect(() => {
 		const getTrailers = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/trailers`);
+				const res = await axios.get(apiUrl + `/api/v1/${contentType}/${id}/trailers`);
 				setTrailers(res.data.trailers);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -33,12 +35,12 @@ const WatchPage = () => {
 		};
 
 		getTrailers();
-	}, [contentType, id]);
+	}, [contentType, id, apiUrl]);
 
 	useEffect(() => {
 		const getSimilarContent = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/similar`);
+				const res = await axios.get(apiUrl + `/api/v1/${contentType}/${id}/similar`);
 				setSimilarContent(res.data.similar);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -48,12 +50,12 @@ const WatchPage = () => {
 		};
 
 		getSimilarContent();
-	}, [contentType, id]);
+	}, [contentType, id ,apiUrl]);
 
 	useEffect(() => {
 		const getContentDetails = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/details`);
+				const res = await axios.get(apiUrl + `/api/v1/${contentType}/${id}/details`);
 				setContent(res.data.content);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -65,7 +67,7 @@ const WatchPage = () => {
 		};
 
 		getContentDetails();
-	}, [contentType, id]);
+	}, [contentType, id, apiUrl]);
 
 	const handleNext = () => {
 		if (currentTrailerIdx < trailers.length - 1) setCurrentTrailerIdx(currentTrailerIdx + 1);

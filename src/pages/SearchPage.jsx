@@ -14,6 +14,9 @@ const SearchPage = () => {
 	const [results, setResults] = useState([]);
 	const { setContentType } = useContentStore();
 
+	const apiUrl = import.meta.env.VITE_BACKEND_URL;
+
+
 	const handleTabClick = (tab) => {
 		setActiveTab(tab);
 		tab === "movie" ? setContentType("movie") : setContentType("tv");
@@ -23,7 +26,7 @@ const SearchPage = () => {
 	const handleSearch = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.get(`/api/v1/search/${activeTab}/${searchTerm}`);
+			const res = await axios.get(apiUrl + `/api/v1/search/${activeTab}/${searchTerm}`);
 			setResults(res.data.content);
 		} catch (error) {
 			if (error.response.status === 404) {

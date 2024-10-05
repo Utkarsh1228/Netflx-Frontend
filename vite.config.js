@@ -7,8 +7,10 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/api": {
-				target: "https://netflx-backend.onrender.com",
+				target: "https://netflx-backend.onrender.com", // Your backend URL
+				changeOrigin: true,
 			},
 		},
+		},
 	},
-});
+);

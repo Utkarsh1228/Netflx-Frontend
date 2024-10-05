@@ -12,18 +12,20 @@ const MovieSlider = ({ category }) => {
 
 	const sliderRef = useRef(null);
 
+	const apiUrl = import.meta.env.VITE_BACKEND_URL;
+
 	const formattedCategoryName =
 		category.replaceAll("_", " ")[0].toUpperCase() + category.replaceAll("_", " ").slice(1);
 	const formattedContentType = contentType === "movie" ? "Movies" : "TV Shows";
 
 	useEffect(() => {
 		const getContent = async () => {
-			const res = await axios.get(`/api/v1/${contentType}/${category}`);
+			const res = await axios.get(apiUrl + `/api/v1/${contentType}/${category}`);
 			setContent(res.data.content);
 		};
 
 		getContent();
-	}, [contentType, category]);
+	}, [contentType, category, apiUrl]);
 
 	const scrollLeft = () => {
 		if (sliderRef.current) {

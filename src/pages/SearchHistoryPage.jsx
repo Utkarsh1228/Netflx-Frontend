@@ -22,22 +22,24 @@ function formatDate(dateString) {
 
 const SearchHistoryPage = () => {
 	const [searchHistory, setSearchHistory] = useState([]);
+	const apiUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 	useEffect(() => {
 		const getSearchHistory = async () => {
 			try {
-				const res = await axios.get(`/api/v1/search/history`);
+				const res = await axios.get(apiUrl + `/api/v1/search/history`);
 				setSearchHistory(res.data.content);
 			} catch (error) {
 				setSearchHistory([]);
 			}
 		};
 		getSearchHistory();
-	}, []);
+	}, [apiUrl]);
 
 	const handleDelete = async (entry) => {
 		try {
-			await axios.delete(`/api/v1/search/history/${entry.id}`);
+			await axios.delete(apiUrl + `/api/v1/search/history/${entry.id}`);
 			setSearchHistory(searchHistory.filter((item) => item.id !== entry.id));
 		} catch (error) {
 			toast.error("Failed to delete search item");
